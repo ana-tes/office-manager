@@ -12,6 +12,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "runDev": "npm start && npx ts-node-dev backend/src/main.ts",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
