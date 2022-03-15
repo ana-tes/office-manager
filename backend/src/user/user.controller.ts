@@ -19,9 +19,9 @@ import { ValidateObjectId } from './shared/pipes/validate-object-id.pipes';
 export class UserController {
   constructor(private userService: UserService) {}
 
-  // Submit a post
-  @Post('/post')
-  async addPost(@Res() res, @Body() createUserDTO: CreateUserDTO) {
+  // Submit a user
+  @Post('/user')
+  async addUser(@Res() res, @Body() createUserDTO: CreateUserDTO) {
     const newUser = await this.userService.addUser(createUserDTO);
     return res.status(HttpStatus.OK).json({
       message: 'User has been submitted successfully!',
@@ -29,26 +29,26 @@ export class UserController {
     });
   }
 
-  // Fetch a particular post using ID
-  @Get('post/:postID')
-  async getPost(@Res() res, @Param('postID', new ValidateObjectId()) userID) {
-    const post = await this.userService.getUser(userID);
-    if (!post) {
+  // Fetch a particular user using ID
+  @Get('user/:userID')
+  async getUser(@Res() res, @Param('postID', new ValidateObjectId()) userID) {
+    const user = await this.userService.getUser(userID);
+    if (!user) {
       throw new NotFoundException('Post does not exist!');
     }
-    return res.status(HttpStatus.OK).json(post);
+    return res.status(HttpStatus.OK).json(user);
   }
 
-  // Fetch all posts
-  @Get('posts')
-  async getPosts(@Res() res) {
+  // Fetch all users
+  @Get('/users')
+  async getUsers(@Res() res) {
     const users = await this.userService.getUsers();
     return res.status(HttpStatus.OK).json(users);
   }
 
-  // Edit a particular post using ID
+  // Edit a particular user using ID
   @Put('/edit')
-  async editPost(
+  async editUser(
     @Res() res,
     @Query('userID', new ValidateObjectId()) userID,
     @Body() createUserDTO: CreateUserDTO,
