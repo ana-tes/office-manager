@@ -20,7 +20,7 @@ export class UserController {
   constructor(private userService: UserService) {}
 
   // Submit a user
-  @Post('/user')
+  @Post()
   async addUser(@Res() res, @Body() createUserDTO: CreateUserDTO) {
     const newUser = await this.userService.addUser(createUserDTO);
     return res.status(HttpStatus.OK).json({
@@ -30,7 +30,7 @@ export class UserController {
   }
 
   // Fetch a particular user using ID
-  @Get('user/:userID')
+  @Get('/:userID')
   async getUser(@Res() res, @Param('postID', new ValidateObjectId()) userID) {
     const user = await this.userService.getUser(userID);
     if (!user) {
@@ -40,14 +40,14 @@ export class UserController {
   }
 
   // Fetch all users
-  @Get('/users')
+  @Get()
   async getUsers(@Res() res) {
     const users = await this.userService.getUsers();
     return res.status(HttpStatus.OK).json(users);
   }
 
   // Edit a particular user using ID
-  @Put('/edit')
+  @Put()
   async editUser(
     @Res() res,
     @Query('userID', new ValidateObjectId()) userID,
@@ -63,7 +63,7 @@ export class UserController {
     });
   }
   // Delete a user using ID
-  @Delete('/delete')
+  @Delete()
   async deletePost(
     @Res() res,
     @Query('userID', new ValidateObjectId()) userID,
