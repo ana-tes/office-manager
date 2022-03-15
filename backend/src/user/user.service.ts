@@ -24,13 +24,15 @@ export class UserService {
   }
 
   async editUser(userID, createUserDTO: CreateUserDTO): Promise<User> {
-    const editedUser = await this.userModel
-      .findByIdAndUpdate(userID, createUserDTO, { new: true });
+    const editedUser = await this.userModel.findByIdAndUpdate(
+      userID,
+      createUserDTO,
+      { new: true },
+    );
     return editedUser;
   }
   async deleteUser(userID): Promise<any> {
-    const deletedPost = await this.userModel
-      .findByIdAndRemove(userID);
+    const deletedPost = await this.userModel.findByIdAndRemove(userID);
     return deletedPost;
   }
 }
