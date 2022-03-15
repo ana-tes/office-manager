@@ -30,7 +30,7 @@ export class UserController {
   }
 
   // Fetch a particular user using ID
-  @Get('/:userID')
+  @Get()
   async getUser(@Res() res, @Param('postID', new ValidateObjectId()) userID) {
     const user = await this.userService.getUser(userID);
     if (!user) {
