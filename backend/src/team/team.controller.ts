@@ -50,7 +50,7 @@ export class TeamController {
   @Put('/:teamID')
   async editTeam(
     @Res() res,
-    @Query('teamID', new ValidateObjectId()) teamID,
+    @Param('teamID', new ValidateObjectId()) teamID,
     @Body() CreateTeamDto: CreateTeamDto,
   ) {
     const editedTeam = await this.blogService.editTeam(teamID, CreateTeamDto);
@@ -66,7 +66,7 @@ export class TeamController {
   @Delete('/:teamID')
   async deletePost(
     @Res() res,
-    @Query('userID', new ValidateObjectId()) teamID,
+    @Param('teamID', new ValidateObjectId()) teamID,
   ) {
     const deletedTeam = await this.blogService.deleteTeam(teamID);
     if (!deletedTeam) {

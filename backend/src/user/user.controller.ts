@@ -31,10 +31,10 @@ export class UserController {
 
   // Fetch a particular user using ID
   @Get(':userID')
-  async getUser(@Res() res, @Param('postID', new ValidateObjectId()) userID) {
+  async getUser(@Res() res, @Param('userID', new ValidateObjectId()) userID) {
     const user = await this.userService.getUser(userID);
     if (!user) {
-      throw new NotFoundException('Post does not exist!');
+      throw new NotFoundException('User does not exist!');
     }
     return res.status(HttpStatus.OK).json(user);
   }
@@ -50,7 +50,7 @@ export class UserController {
   @Put(':userID')
   async editUser(
     @Res() res,
-    @Query('userID', new ValidateObjectId()) userID,
+    @Param('userID', new ValidateObjectId()) userID,
     @Body() createUserDTO: CreateUserDTO,
   ) {
     const editedUser = await this.userService.editUser(userID, createUserDTO);
@@ -62,11 +62,12 @@ export class UserController {
       user: editedUser,
     });
   }
+
   // Delete a user using ID
   @Delete(':userID')
   async deletePost(
     @Res() res,
-    @Query('userID', new ValidateObjectId()) userID,
+    @Param('userID', new ValidateObjectId()) userID,
   ) {
     const deletedUser = await this.userService.deleteUser(userID);
     if (!deletedUser) {
