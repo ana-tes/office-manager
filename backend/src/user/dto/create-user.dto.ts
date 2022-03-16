@@ -4,9 +4,11 @@ export class CreateUserDTO {
   readonly lastName: string;
   readonly photo: string;
   readonly position: string;
-  readonly contacts: [{
-    name: { type: string, default: '' },
-    value: { type: string, default: '' },
-  }];
+  readonly contacts: [
+    {
+      name: { type: string; default: '' };
+      value: { type: string; default: '' };
+    },
+  ];
   // add link to the team
 }

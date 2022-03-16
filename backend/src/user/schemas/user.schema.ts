@@ -6,9 +6,11 @@ export const UserSchema = new mongoose.Schema({
   lastName: String,
   photo: String,
   position: String,
-  contacts: [{
-    name: { type: String, default: '' },
-    value: { type: String, default: '' },
-  }],
+  contacts: [
+    {
+      name: { type: String, default: '' },
+      value: { type: String, default: '' },
+    },
+  ],
   // add link to the team
 });
