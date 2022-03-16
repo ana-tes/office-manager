@@ -30,8 +30,8 @@ export class TeamController {
   }
 
   // Fetch a particular team using ID
-  @Get()
-  async getPost(@Res() res, @Param('teamID', new ValidateObjectId()) teamID) {
+  @Get('/:teamID')
+  async getTeam(@Res() res, @Param('teamID', new ValidateObjectId()) teamID) {
     const team = await this.blogService.getTeam(teamID);
     if (!team) {
       throw new NotFoundException('Team does not exist!');
@@ -47,7 +47,7 @@ export class TeamController {
   }
 
   // Edit a particular team using ID
-  @Put()
+  @Put('/:teamID')
   async editTeam(
     @Res() res,
     @Query('teamID', new ValidateObjectId()) teamID,
@@ -63,7 +63,7 @@ export class TeamController {
     });
   }
   // Delete a post using ID
-  @Delete('/delete')
+  @Delete('/:teamID')
   async deletePost(
     @Res() res,
     @Query('userID', new ValidateObjectId()) teamID,

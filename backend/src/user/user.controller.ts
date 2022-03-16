@@ -30,7 +30,7 @@ export class UserController {
   }
 
   // Fetch a particular user using ID
-  @Get('/:userID')
+  @Get(':userID')
   async getUser(@Res() res, @Param('postID', new ValidateObjectId()) userID) {
     const user = await this.userService.getUser(userID);
     if (!user) {
@@ -47,7 +47,7 @@ export class UserController {
   }
 
   // Edit a particular user using ID
-  @Put('/:userID')
+  @Put(':userID')
   async editUser(
     @Res() res,
     @Query('userID', new ValidateObjectId()) userID,
@@ -63,7 +63,7 @@ export class UserController {
     });
   }
   // Delete a user using ID
-  @Delete('/:userID')
+  @Delete(':userID')
   async deletePost(
     @Res() res,
     @Query('userID', new ValidateObjectId()) userID,
