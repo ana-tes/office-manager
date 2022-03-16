@@ -25,12 +25,12 @@ export class UserController {
     const newUser = await this.userService.addUser(createUserDTO);
     return res.status(HttpStatus.OK).json({
       message: 'User has been submitted successfully!',
-      post: newUser,
+      user: newUser,
     });
   }
 
   // Fetch a particular user using ID
-  @Get()
+  @Get('/:userID')
   async getUser(@Res() res, @Param('postID', new ValidateObjectId()) userID) {
     const user = await this.userService.getUser(userID);
     if (!user) {
@@ -47,7 +47,7 @@ export class UserController {
   }
 
   // Edit a particular user using ID
-  @Put()
+  @Put('/:userID')
   async editUser(
     @Res() res,
     @Query('userID', new ValidateObjectId()) userID,
@@ -59,11 +59,11 @@ export class UserController {
     }
     return res.status(HttpStatus.OK).json({
       message: 'User has been successfully updated',
-      post: editedUser,
+      user: editedUser,
     });
   }
   // Delete a user using ID
-  @Delete()
+  @Delete('/:userID')
   async deletePost(
     @Res() res,
     @Query('userID', new ValidateObjectId()) userID,
@@ -74,7 +74,7 @@ export class UserController {
     }
     return res.status(HttpStatus.OK).json({
       message: 'User has been deleted!',
-      post: deletedUser,
+      user: deletedUser,
     });
   }
 }
