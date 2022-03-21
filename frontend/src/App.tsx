@@ -12,10 +12,10 @@ function App(): JSX.Element {
       <Navbar />
       <div className={'container'}>
         <Routes>
-          <Route path="/"  element={Home} />
-          <Route path="/user/:userId"  element={Post} />
-          <Route path="/edit/:userId"  element={Edit} />
-          <Route path="/create"  element={Create} />
+          <Route path="/"  element={<Home/>} />
+          <Route path="/user/:userId"  element={<Post/>} />
+          <Route path="/edit/:userId"  element={<Edit/>} />
+          <Route path="/create"  element={<Create/>} />
         </Routes>
       </div>
     </div>

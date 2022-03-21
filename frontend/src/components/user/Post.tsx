@@ -2,17 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 
 function Post() {
-    let { postId } = useParams();
+    let { userId } = useParams();
     const [user, setPost] = useState<any>({});
 
     useEffect(() => {
         const fetchData = async (): Promise<void> => {
-            const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/blog/user/${postId}`);
+            const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/user/${userId}`);
             const json = await response.json();
             setPost(json);
         }
         fetchData();
-    }, [postId]);
+    }, [userId]);
 
     return (
         <section className="user-area">
