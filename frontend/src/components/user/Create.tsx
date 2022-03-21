@@ -34,10 +34,11 @@ function Create(): JSX.Element {
     e.preventDefault();
     setLoading(true);
     const formData = {
-      title: values.title,
-      description: values.description,
-      body: values.body,
-      author
+      login: values.login,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      photo: values.photo,
+      position: values.position,
     }
     const submitSuccess: boolean = await submitform(formData);
     setSubmitSuccess(submitSuccess);
@@ -94,6 +95,10 @@ function Create(): JSX.Element {
           <div className="form-group col-md-12">
             <label htmlFor="lastName"> Last Name </label>
             <input type="text" id="lastName" onChange={(e) => handleInputChanges(e)} name="lastName" className="form-control" placeholder="Enter lastName" />
+          </div>
+          <div className="form-group col-md-12">
+            <label htmlFor="login"> Login </label>
+            <input type="text" id="login" onChange={(e) => handleInputChanges(e)} name="login" className="form-control" placeholder="Enter login" />
           </div>
           <div className="form-group col-md-12">
             <label htmlFor="photo"> Photo </label>
