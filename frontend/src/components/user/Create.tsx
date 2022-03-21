@@ -89,19 +89,19 @@ function Create(): JSX.Element {
         <form id={"create-user-form"} onSubmit={handleFormSubmission} noValidate={true}>
           <div className="form-group col-md-12">
             <label htmlFor="firstName"> First Name </label>
-            <input type="text" id="firstName" onChange={(e) => handleInputChanges(e)} name="firstName" className="form-control" placeholder="Enter title" />
+            <input type="text" id="firstName" onChange={(e) => handleInputChanges(e)} name="firstName" className="form-control" placeholder="Enter firstName" />
           </div>
           <div className="form-group col-md-12">
             <label htmlFor="lastName"> Last Name </label>
-            <input type="text" id="lastName" onChange={(e) => handleInputChanges(e)} name="lastName" className="form-control" placeholder="Enter Description" />
+            <input type="text" id="lastName" onChange={(e) => handleInputChanges(e)} name="lastName" className="form-control" placeholder="Enter lastName" />
           </div>
           <div className="form-group col-md-12">
             <label htmlFor="photo"> Photo </label>
-            <input type="text" id="photo" onChange={(e) => handleInputChanges(e)} name="photo" className="form-control" placeholder="Enter content" />
+            <input type="text" id="photo" onChange={(e) => handleInputChanges(e)} name="photo" className="form-control" placeholder="Enter photo" />
           </div>
           <div className="form-group col-md-12">
             <label htmlFor="position"> Position </label>
-            <input type="text" id="position" defaultValue={author} onChange={(e) => handleInputChanges(e)} name="position" className="form-control" />
+            <input type="text" id="position" defaultValue={author} onChange={(e) => handleInputChanges(e)} name="position" className="form-control" placeholder="Enter position" />
           </div>
           <div className="form-group col-md-4 pull-right">
             <button className="btn btn-success" type="submit">
