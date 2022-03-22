@@ -22,7 +22,9 @@ export class UserController {
   // Submit a user
   @Post()
   async addUser(@Res() res, @Body() createUserDTO: CreateUserDTO) {
+    console.log(createUserDTO);
     const newUser = await this.userService.addUser(createUserDTO);
+    console.log(newUser);
     return res.status(HttpStatus.OK).json({
       message: 'User has been submitted successfully!',
       user: newUser,

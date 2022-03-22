@@ -19,10 +19,12 @@ export class AuthenticationMiddleware implements NestMiddleware {
       issuer: `https://${process.env.AUTH0_DOMAIN}/`,
       algorithms: ['RS256'],
     })(req, res, (err) => {
+      console.log(err);
       if (err) {
         const status = err.status || 500;
         const message =
           err.message || 'Sorry we were unable to process your request.';
+          console.log(message);
         return res.status(status).send({
           message,
         });
