@@ -14,6 +14,7 @@ import {
 import { UserService } from './user.service';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { ValidateObjectId } from './shared/pipes/validate-object-id.pipes';
+import * as logger from 'winston';
 
 @Controller('user')
 export class UserController {
@@ -22,9 +23,9 @@ export class UserController {
   // Submit a user
   @Post()
   async addUser(@Res() res, @Body() createUserDTO: CreateUserDTO) {
-    console.log(createUserDTO);
+    logger.info(createUserDTO.toString());
     const newUser = await this.userService.addUser(createUserDTO);
-    console.log(newUser);
+    logger.info(newUser.toJSON().toString());
     return res.status(HttpStatus.OK).json({
       message: 'User has been submitted successfully!',
       user: newUser,
