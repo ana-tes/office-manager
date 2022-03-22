@@ -37,7 +37,7 @@ function Edit(): JSX.Element {
     const submitForm = async (): Promise<boolean> => {
         try {
             const accessToken = await getIdTokenClaims();
-            const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/user?userID=${userId}`, {
+            const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/user/${userId}`, {
                 method: "put",
                 headers: new Headers({
                     "Content-Type": "application/json",
@@ -69,19 +69,19 @@ function Edit(): JSX.Element {
                     )}
                     <form id={"create-user-form"} onSubmit={handleFormSubmission} noValidate={true}>
                         <div className="form-group col-md-12">
-                            <label htmlFor="firstName"> Title </label>
+                            <label htmlFor="firstName"> First name </label>
                             <input type="text" id="firstName" defaultValue={user.firstName} onChange={(e) => handleInputChanges(e)} name="firstName" className="form-control" placeholder="Enter firstName" />
                         </div>
                         <div className="form-group col-md-12">
-                            <label htmlFor="lastName"> Description </label>
+                            <label htmlFor="lastName"> Last name </label>
                             <input type="text" id="lastName" defaultValue={user.lastName} onChange={(e) => handleInputChanges(e)} name="lastName" className="form-control" placeholder="Enter Description" />
                         </div>
                         <div className="form-group col-md-12">
-                            <label htmlFor="photo"> Write Content </label>
+                            <label htmlFor="photo"> Photo </label>
                             <input type="text" id="photo" defaultValue={user.photo} onChange={(e) => handleInputChanges(e)} name="photo" className="form-control" placeholder="Enter content" />
                         </div>
                         <div className="form-group col-md-12">
-                            <label htmlFor="position"> Write Content </label>
+                            <label htmlFor="position"> Position </label>
                             <input type="text" id="position" defaultValue={user.position} onChange={(e) => handleInputChanges(e)} name="position" className="form-control" placeholder="Enter content" />
                         </div>
                         <div className="form-group col-md-4 pull-right">

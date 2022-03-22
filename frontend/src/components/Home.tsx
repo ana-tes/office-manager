@@ -9,7 +9,7 @@ function Home(): JSX.Element {
 
   const deleteUser = async (id: string) => {
     const accessToken = await getIdTokenClaims();
-    await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/user?userID=${id}`, {
+    await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/user/${id}`, {
       method: "delete",
       headers: new Headers({
         "Content-Type": "application/json",
