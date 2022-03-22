@@ -23,9 +23,13 @@ interface IState {
     user?: any;
 }
 export class Auth0Provider extends Component<{}, IState> {
-    handleRedirectCallback() {
-        throw new Error('Method not implemented.');
-    }
+    handleRedirectCallback = async () => {
+        this.setState({ isLoading: true });
+        await this.state.auth0Client.handleRedirectCallback();
+        const user = await this.state.auth0Client.getUser();
+        this.setState({ user, isAuthenticated: true, isLoading: false });
+        window.history.replaceState({}, document.title, window.location.pathname);
+    };
     constructor(props: any) {
         super(props)
         this.state = {

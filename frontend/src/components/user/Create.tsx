@@ -40,9 +40,7 @@ function Create(): JSX.Element {
       photo: values.photo,
       position: values.position,
     }
-    console.log(formData);
     const submitSuccess: boolean = await submitform(formData);
-    console.log(submitSuccess);
     setSubmitSuccess(submitSuccess);
     setValues({ ...values, formData });
     setLoading(false);
