@@ -40,7 +40,9 @@ function Create(): JSX.Element {
       photo: values.photo,
       position: values.position,
     }
+    console.log(formData);
     const submitSuccess: boolean = await submitform(formData);
+    console.log(submitSuccess);
     setSubmitSuccess(submitSuccess);
     setValues({ ...values, formData });
     setLoading(false);
@@ -53,7 +55,7 @@ function Create(): JSX.Element {
     try {
       const accessToken = await getIdTokenClaims();
       const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/user`, {
-        method: "user",
+        method: "POST",
         headers: new Headers({
           "Content-Type": "application/json",
           "Accept": "application/json",
@@ -63,6 +65,7 @@ function Create(): JSX.Element {
       });
       return response.ok;
     } catch (ex) {
+      console.log(ex);
       return false;
     }
   }
