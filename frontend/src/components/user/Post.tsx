@@ -32,6 +32,15 @@ function Post() {
                                     <p className="para">
                                         {user.position}
                                     </p>
+                                    <p className="para">
+                                        {user.login}
+                                    </p>
+                                    <p className="para">
+                                        {user.photo}
+                                    </p>
+                                    <p className="para">
+                                        {user.team}
+                                    </p>
                                 </div>
                             </div>
                         }
