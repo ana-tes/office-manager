@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import * as logger from 'winston';
 import { useAuth0 } from '../../contexts/auth0-context';
 
 const withRouter = (WrappedComponent: any) => (props: any) => {
@@ -63,7 +64,7 @@ function Create(): JSX.Element {
       });
       return response.ok;
     } catch (ex) {
-      console.log(ex);
+      logger.error(ex);
       return false;
     }
   }
