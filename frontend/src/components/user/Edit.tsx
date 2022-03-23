@@ -86,7 +86,7 @@ function Edit(): JSX.Element {
                         </div>
                         <div className="form-group col-md-12">
                             <label htmlFor="team"> Team </label>
-                            <input type="text" id="lastName" onChange={(e) => handleInputChanges(e)} name="team" className="form-control" placeholder="Enter team" />
+                            <input type="text" id="team" onChange={(e) => handleInputChanges(e)} name="team" className="form-control" placeholder="Enter team" />
                         </div>
                         <div className="form-group col-md-4 pull-right">
                             <button className="btn btn-success" type="submit">
