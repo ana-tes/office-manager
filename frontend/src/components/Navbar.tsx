@@ -28,7 +28,10 @@ function Navbar() {
                     <li><Link className={"nav-link"} to={"/"}> Office Management </Link></li>
                     <li><Link className={"nav-link"} to={"/"}> Home </Link></li>
                     {isAuthenticated && (
-                        <li><Link className={"nav-link"} to={"/create"}> Create </Link></li>
+                        <li><Link className={"nav-link"} to={"/user/create"}> Create User</Link></li>
+                    )}
+                    {isAuthenticated && (
+                        <li><Link className={"nav-link"} to={"/team/create"}> Create Team</Link></li>
                     )}
                     <li>
                         <Link className={"nav-link"} to={"/"}>

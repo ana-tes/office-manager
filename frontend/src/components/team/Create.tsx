@@ -52,7 +52,7 @@ function Create(): JSX.Element {
   const submitform = async (formData: {}) => {
     try {
       const accessToken = await getIdTokenClaims();
-      const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/user`, {
+      const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/team`, {
         method: "POST",
         headers: new Headers({
           "Content-Type": "application/json",
@@ -80,7 +80,7 @@ function Create(): JSX.Element {
         <h2> Create User </h2>
         {!submitSuccess && (
           <div className="alert alert-info" role="alert">
-            Fill the form below to create a new user.
+            Fill the form below to create a new team.
           </div>
         )}
         {submitSuccess && (
@@ -90,32 +90,12 @@ function Create(): JSX.Element {
         )}
         <form id={"create-user-form"} onSubmit={handleFormSubmission} noValidate={true}>
           <div className="form-group col-md-12">
-            <label htmlFor="firstName"> First Name </label>
-            <input type="text" id="firstName" onChange={(e) => handleInputChanges(e)} name="firstName" className="form-control" placeholder="Enter firstName" />
-          </div>
-          <div className="form-group col-md-12">
-            <label htmlFor="lastName"> Last Name </label>
-            <input type="text" id="lastName" onChange={(e) => handleInputChanges(e)} name="lastName" className="form-control" placeholder="Enter lastName" />
-          </div>
-          <div className="form-group col-md-12">
-            <label htmlFor="login"> Login </label>
-            <input type="text" id="login" onChange={(e) => handleInputChanges(e)} name="login" className="form-control" placeholder="Enter login" />
-          </div>
-          <div className="form-group col-md-12">
-            <label htmlFor="photo"> Photo </label>
-            <input type="text" id="photo" onChange={(e) => handleInputChanges(e)} name="photo" className="form-control" placeholder="Enter photo" />
-          </div>
-          <div className="form-group col-md-12">
-            <label htmlFor="position"> Position </label>
-            <input type="text" id="position" defaultValue={author} onChange={(e) => handleInputChanges(e)} name="position" className="form-control" placeholder="Enter position" />
-          </div>
-          <div className="form-group col-md-12">
-            <label htmlFor="team"> Team </label>
+            <label htmlFor="team"> Team Name </label>
             <input type="text" id="team" onChange={(e) => handleInputChanges(e)} name="team" className="form-control" placeholder="Enter team name" />
           </div>
           <div className="form-group col-md-4 pull-right">
             <button className="btn btn-success" type="submit">
-              Create User
+              Create Team
             </button>
             {loading &&
               <span className="fa fa-circle-o-notch fa-spin" />
