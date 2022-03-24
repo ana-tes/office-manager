@@ -1,5 +1,6 @@
-import { Type } from 'class-transformer';
-import { ValidateNested } from 'class-validator';
+import { Types } from 'mongoose';
+import { Prop } from "@nestjs/mongoose";
+import { IsMongoId, IsOptional } from "class-validator";
 import { Team } from '../../team/schemas/team.schema';
 
 export class CreateUserDTO {
@@ -15,7 +16,8 @@ export class CreateUserDTO {
     },
   ];
   
-  @Type(() => Team)
-  @ValidateNested()
+  @IsMongoId()
+  @IsOptional()
+  @Prop({ type: Types.ObjectId, ref: Team.name })
   readonly team: Team;
 }

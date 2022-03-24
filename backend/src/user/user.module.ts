@@ -4,6 +4,8 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
+import { TeamModule } from '../team/team.module';
+import { TeamService } from '../team/team.service';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -11,7 +13,10 @@ import { User, UserSchema } from './schemas/user.schema';
 import { AuthenticationMiddleware } from 'src/common/authentication.middleware';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: User.name, schema: UserSchema }])],
+  imports: [
+    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]), 
+    TeamModule
+  ],
   providers: [UserService],
   controllers: [UserController],
 })

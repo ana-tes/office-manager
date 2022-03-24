@@ -9,7 +9,7 @@ import { CreateTeamDto } from './dto/create-team.dto';
 export class TeamService {
   constructor(@InjectModel(Team.name) private readonly teamModel: Model<Team>) {}
 
-  async addTeam(CreateTeamDto: CreateTeamDto): Promise<Team> {
+  async addTeam(CreateTeamDto: CreateTeamDto): Promise<ITeam> {
     const newPost = new this.teamModel(CreateTeamDto);
     return newPost.save();
   }
@@ -24,7 +24,7 @@ export class TeamService {
     return posts;
   }
 
-  async editTeam(teamID, CreateTeamDto: CreateTeamDto): Promise<Team> {
+  async editTeam(teamID, CreateTeamDto: CreateTeamDto): Promise<ITeam> {
     const editedTeam = await this.teamModel.findByIdAndUpdate(
       teamID,
       CreateTeamDto,

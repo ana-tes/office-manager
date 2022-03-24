@@ -11,7 +11,6 @@ import { TeamModule } from './team/team.module';
       useNewUrlParser: true,
     }),
     UserModule,
-    TeamModule,
   ],
   controllers: [AppController],
   providers: [AppService],

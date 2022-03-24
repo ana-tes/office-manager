@@ -14,6 +14,7 @@ import { AuthenticationMiddleware } from 'src/common/authentication.middleware';
   imports: [MongooseModule.forFeature([{ name: Team.name, schema: TeamSchema }])],
   providers: [TeamService],
   controllers: [TeamController],
+  exports: [TeamService],
 })
 export class TeamModule implements NestModule {
   configure(consumer: MiddlewareConsumer): MiddlewareConsumer | void {

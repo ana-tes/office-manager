@@ -5,12 +5,14 @@ import {
   HttpStatus,
   Param,
   NotFoundException,
+  HttpException,
   Post,
   Body,
   Put,
   Query,
   Delete,
 } from '@nestjs/common';
+import { TeamService } from '../team/team.service';
 import { UserService } from './user.service';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { ValidateObjectId } from './shared/pipes/validate-object-id.pipes';
@@ -18,11 +20,12 @@ import * as logger from 'winston';
 
 @Controller('user')
 export class UserController {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private readonly teamService: TeamService) {}
 
   // Submit a user
   @Post()
   async addUser(@Res() res, @Body() createUserDTO: CreateUserDTO) {
+    await this.checkTeam(createUserDTO);
     logger.info(createUserDTO.toString());
     const newUser = await this.userService.addUser(createUserDTO);
     logger.info(newUser.toJSON().toString());
@@ -56,6 +59,7 @@ export class UserController {
     @Param('userID', new ValidateObjectId()) userID,
     @Body() createUserDTO: CreateUserDTO,
   ) {
+    await this.checkTeam(createUserDTO);
     const editedUser = await this.userService.editUser(userID, createUserDTO);
     if (!editedUser) {
       throw new NotFoundException('User does not exist!');
@@ -80,5 +84,14 @@ export class UserController {
       message: 'User has been deleted!',
       user: deletedUser,
     });
+  }
+
+  async checkTeam(createUserDTO: CreateUserDTO) {
+    if (createUserDTO.team) {
+      let team = await this.teamService.getTeam(createUserDTO.team);
+      if (!team){
+        throw new HttpException('invalid team', HttpStatus.BAD_REQUEST);
+      }
+    }
   }
 }
