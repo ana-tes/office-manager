@@ -1,7 +1,17 @@
-import * as mongoose from 'mongoose';
+import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
-export const TeamSchema = new mongoose.Schema({
-  name: String,
-  previousTeam: String,
-  currentTeam: String,
-});
+@Schema()
+export class Team extends Document {
+  
+  @Prop({ unique: true })
+  name: string;
+
+  @Prop()
+  previousTeam: string;
+  
+  @Prop()
+  currentTeam: string;
+}
+
+export const TeamSchema = SchemaFactory.createForClass(Team);

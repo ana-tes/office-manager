@@ -1,16 +1,35 @@
-import * as mongoose from 'mongoose';
+import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
+import { Document, Types } from 'mongoose';
+import { Team } from '../../team/schemas/team.schema';
 
-export const UserSchema = new mongoose.Schema({
-  login: String,
-  firstName: String,
-  lastName: String,
-  photo: String,
-  position: String,
+@Schema()
+export class User extends Document {
+  
+  @Prop()
+  login: string;
+
+  @Prop()
+  firstName: string;
+  
+  @Prop()
+  lastName: string;
+  
+  @Prop()
+  photo: string;
+  
+  @Prop()
+  position: string;
+  
+  @Prop()
   contacts: [
     {
-      name: { type: String, default: '' },
-      value: { type: String, default: '' },
+      name: { type: string; default: '' };
+      value: { type: string; default: '' };
     },
-  ],
-  // add link to the team
-});
+  ];
+
+  @Prop({ type: Types.ObjectId, ref: Team.name })
+  team: string;
+}
+
+export const UserSchema = SchemaFactory.createForClass(User);

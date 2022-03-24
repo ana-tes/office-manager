@@ -38,15 +38,15 @@ function Home(): JSX.Element {
     <section className="blog-area section">
       <div className="container">
         <div className="row">
-          {users && users.map((user: { firstName: string; _id: any; lastName: string; position:string, team:string }) => (
+          {users && users.map((user: { firstName: string; _id: any; lastName: string; position:string, team: {_id: any, name: string} }) => (
             <div className="col-lg-4 col-md-6" key={user._id}>
               <div className="card h-100">
                 <div className="single-post post-style-1">
                   <div className="blog-info">
                     <h4 className="title">
                       <span>
-                        <b>{user.firstName + ' ' + user.lastName}</b>
-                        <b>{user.team}</b>
+                        <p>{user.firstName + ' ' + user.lastName}</p>
+                        <p>{user.team?.name}</p>
                       </span>
                     </h4>
                   </div>

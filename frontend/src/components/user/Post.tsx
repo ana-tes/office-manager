@@ -39,7 +39,7 @@ function Post() {
                                         {user.photo}
                                     </p>
                                     <p className="para">
-                                        {user.team}
+                                        {user.team?.name}
                                     </p>
                                 </div>
                             </div>

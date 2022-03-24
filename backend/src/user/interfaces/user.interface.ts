@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
 
-export interface User extends Document {
+export interface IUser extends Document {
   readonly login: string;
   readonly firstName: string;
   readonly lastName: string;
@@ -12,5 +12,4 @@ export interface User extends Document {
       value: { type: string; default: '' };
     },
   ];
-  // add link to the team
 }

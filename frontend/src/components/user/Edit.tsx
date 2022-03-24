@@ -91,7 +91,7 @@ function Edit(): JSX.Element {
                         </div>
                         <div className="form-group col-md-12">
                             <label htmlFor="team"> Team </label>
-                            <input type="text" id="team" onChange={(e) => handleInputChanges(e)} name="team" className="form-control" placeholder="Enter team name" />
+                            <input type="text" id="team" defaultValue={user.team?.name} onChange={(e) => handleInputChanges(e)} name="team" className="form-control" placeholder="Enter team name" />
                         </div>
                         <div className="form-group col-md-4 pull-right">
                             <button className="btn btn-success" type="submit">

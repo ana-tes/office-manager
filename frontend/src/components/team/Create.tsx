@@ -34,11 +34,7 @@ function Create(): JSX.Element {
     e.preventDefault();
     setLoading(true);
     const formData = {
-      login: values.login,
-      firstName: values.firstName,
-      lastName: values.lastName,
-      photo: values.photo,
-      position: values.position,
+      name: values.name,
     }
     const submitSuccess: boolean = await submitform(formData);
     setSubmitSuccess(submitSuccess);
@@ -90,8 +86,8 @@ function Create(): JSX.Element {
         )}
         <form id={"create-user-form"} onSubmit={handleFormSubmission} noValidate={true}>
           <div className="form-group col-md-12">
-            <label htmlFor="team"> Team Name </label>
-            <input type="text" id="team" onChange={(e) => handleInputChanges(e)} name="team" className="form-control" placeholder="Enter team name" />
+            <label htmlFor="name"> Team Name </label>
+            <input type="text" id="name" onChange={(e) => handleInputChanges(e)} name="name" className="form-control" placeholder="Enter team name" />
           </div>
           <div className="form-group col-md-4 pull-right">
             <button className="btn btn-success" type="submit">

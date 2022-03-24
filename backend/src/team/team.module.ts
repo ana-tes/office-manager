@@ -7,11 +7,11 @@ import {
 import { TeamService } from './team.service';
 import { TeamController } from './team.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { TeamSchema } from './schemas/team.schema';
+import { Team, TeamSchema } from './schemas/team.schema';
 import { AuthenticationMiddleware } from 'src/common/authentication.middleware';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: 'Team', schema: TeamSchema }])],
+  imports: [MongooseModule.forFeature([{ name: Team.name, schema: TeamSchema }])],
   providers: [TeamService],
   controllers: [TeamController],
 })

@@ -1,7 +1,6 @@
 import { Document } from 'mongoose';
 
-export interface Team extends Document {
+export interface ITeam extends Document {
+  
   readonly name: string;
-  readonly previousTeam: string;
-  readonly currentTeam: string;
 }
