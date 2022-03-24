@@ -58,7 +58,7 @@ function Home(): JSX.Element {
                   <li>
                     {
                       isAuthenticated &&
-                      <Link to={`/edit/${user._id}`} className="btn btn-sm btn-outline-secondary">Edit User </Link>
+                      <Link to={`user/edit/${user._id}`} className="btn btn-sm btn-outline-secondary">Edit User </Link>
                     }
                   </li>
                   <li>
