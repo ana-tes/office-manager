@@ -12,11 +12,12 @@ import {
   Query,
   Delete,
 } from '@nestjs/common';
+import * as logger from 'winston';
+import { PaginationParams } from '../common/paginationParams';
 import { TeamService } from '../team/team.service';
 import { UserService } from './user.service';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { ValidateObjectId } from './shared/pipes/validate-object-id.pipes';
-import * as logger from 'winston';
 
 @Controller('user')
 export class UserController {
@@ -47,8 +48,8 @@ export class UserController {
 
   // Fetch all users
   @Get()
-  async getUsers(@Res() res) {
-    const users = await this.userService.getUsers();
+  async getUsers(@Query() { skip, limit }: PaginationParams, @Res() res) {
+    const users = await this.userService.getUsers(skip, limit);
     return res.status(HttpStatus.OK).json(users);
   }
 

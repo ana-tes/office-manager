@@ -15,6 +15,7 @@ import {
 import { TeamService } from './team.service';
 import { CreateTeamDto } from './dto/create-team.dto';
 import { ValidateObjectId } from './shared/validate-object-id.pipes';
+import { PaginationParams } from '../common/paginationParams';
 
 @Controller('team')
 export class TeamController {
@@ -41,8 +42,8 @@ export class TeamController {
 
   // Fetch all team
   @Get()
-  async getTeams(@Res() res) {
-    const teams = await this.blogService.getTeams();
+  async getTeams(@Query() { skip, limit }: PaginationParams, @Res() res) {
+    const teams = await this.blogService.getTeams(skip, limit);
     return res.status(HttpStatus.OK).json(teams);
   }
 

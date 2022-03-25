@@ -19,9 +19,12 @@ export class UserService {
     return user;
   }
 
-  async getUsers(): Promise<User[]> {
-    const users = await this.userModel.find().populate('team').exec();
-    return users;
+  async getUsers(documentsToSkip = 0, limitOfDocuments?: number): Promise<User[]> {
+    const users = this.userModel.find().skip(documentsToSkip);
+    if (limitOfDocuments) {
+      users.limit(limitOfDocuments);
+    }
+    return await users.populate('team').exec();
   }
 
   async editUser(userID, createUserDTO: CreateUserDTO): Promise<IUser> {

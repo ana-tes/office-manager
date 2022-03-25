@@ -19,9 +19,12 @@ export class TeamService {
     return post;
   }
 
-  async getTeams(): Promise<Team[]> {
-    const posts = await this.teamModel.find().exec();
-    return posts;
+  async getTeams(documentsToSkip = 0, limitOfDocuments?: number): Promise<Team[]> {
+    const teams = this.teamModel.find().skip(documentsToSkip);
+    if (limitOfDocuments) {
+      teams.limit(limitOfDocuments);
+    }
+    return await teams.exec();
   }
 
   async editTeam(teamID, CreateTeamDto: CreateTeamDto): Promise<ITeam> {
