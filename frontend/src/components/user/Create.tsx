@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Button,
+  SelectChangeEvent
+} from '@mui/material';
 import { useAuth0 } from '../../contexts/auth0-context';
 
 const withRouter = (WrappedComponent: any) => (props: any) => {
@@ -23,6 +31,9 @@ function Create(): JSX.Element {
   const [values, setValues] = useState<IValues>([]);
   const [submitSuccess, setSubmitSuccess] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [teams, setTeams] = useState([]);
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -39,6 +50,7 @@ function Create(): JSX.Element {
       lastName: values.lastName,
       photo: values.photo,
       position: values.position,
+      team: values.team,
     }
     const submitSuccess: boolean = await submitform(formData);
     setSubmitSuccess(submitSuccess);
@@ -70,10 +82,42 @@ function Create(): JSX.Element {
   const setFormValues = (formValues: IValues) => {
     setValues({ ...values, ...formValues })
   }
+
   const handleInputChanges = (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault();
     setFormValues({ [e.currentTarget.name]: e.currentTarget.value })
   }
+
+  const handleTeamChanges = (e: SelectChangeEvent<any>) => {
+    e.preventDefault();
+    setFormValues({ "team": e.target.value });
+  }
+
+  useEffect(() => {
+    const accessToken = getIdTokenClaims();
+    fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/team`, {
+      method: "GET",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "authorization": `Bearer ${accessToken.__raw}`
+      })
+    })
+      .then(res => res.json())
+      .then(
+        (teams) => {
+          console.log(teams);
+          setIsLoaded(true);
+          setTeams(teams);
+        },
+        (error) => {
+          console.log(error)
+          setIsLoaded(true);
+          setError(error);
+        }
+      )
+  }, [])
+
   return (
     <div>
       <div className={"col-md-12 form-wrapper"}>
@@ -109,14 +153,24 @@ function Create(): JSX.Element {
             <label htmlFor="position"> Position </label>
             <input type="text" id="position" defaultValue={author} onChange={(e) => handleInputChanges(e)} name="position" className="form-control" placeholder="Enter position" />
           </div>
-          <div className="form-group col-md-12">
-            <label htmlFor="team"> Team </label>
-            <input type="text" id="team" onChange={(e) => handleInputChanges(e)} name="team" className="form-control" placeholder="Enter team name" />
-          </div>
-          <div className="form-group col-md-4 pull-right">
-            <button className="btn btn-success" type="submit">
-              Create User
-            </button>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Team</InputLabel>
+            <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={user?.team?.name}
+            label="Team"
+            onChange={handleTeamChanges}
+            >
+              {
+	                teams?.map((team: {_id: any; name: string}) => (<MenuItem value={team._id}>{team.name}</MenuItem>))
+              }
+            </Select>
+          </FormControl>
+          <div className="create-user-button">
+            <Button variant="contained" type="submit">
+              Create
+            </Button>
             {loading &&
               <span className="fa fa-circle-o-notch fa-spin" />
             }
