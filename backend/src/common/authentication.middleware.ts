@@ -25,7 +25,7 @@ export class AuthenticationMiddleware implements NestMiddleware {
         const status = err.status || 500;
         const message =
           err.message || 'Sorry we were unable to process your request.';
-        logger.info(message);
+        logger.error(message);
         return res.status(status).send({
           message,
         });
