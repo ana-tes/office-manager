@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import {
+    FormControl,
+    TextField,
+    Button,
+} from '@mui/material';
 import { useAuth0 } from '../../contexts/auth0-context';
+import { useStyles } from '../../common/styles';
 
 function Edit(): JSX.Element {
     const { getIdTokenClaims } = useAuth0();
@@ -11,6 +17,7 @@ function Edit(): JSX.Element {
         [key: string]: any;
     }
 
+    const { classes } = useStyles();
     const [user, setUser] = useState<any>()
     const [values, setValues] = useState<IValues>([]);
     const [submitSuccess, setSubmitSuccess] = useState<boolean>(false)
@@ -70,18 +77,24 @@ function Edit(): JSX.Element {
                         </div>
                     )}
                     <form id={"create-user-form"} onSubmit={handleFormSubmission} noValidate={true}>
-                        <div className="form-group col-md-12">
-                            <label htmlFor="team"> Team name </label>
-                            <input type="text" id="team" defaultValue={user.team} onChange={(e) => handleInputChanges(e)} name="team" className="form-control" placeholder="Enter team name" />
-                        </div>
-                        <div className="form-group col-md-4 pull-right">
-                            <button className="btn btn-success" type="submit">
-                                Edit Team
-                            </button>
+                        <FormControl fullWidth className={classes.selection}>
+                            <TextField
+                                id="name"
+                                onChange={(e: any) => handleInputChanges(e)}
+                                name="name"
+                                className={classes.infoStyle}
+                                label="Name"
+                                defaultValue={user.team}
+                                />
+                        </FormControl>
+                        <FormControl fullWidth className={classes.buttonSubmit}>
+                            <Button variant="contained" type="submit">
+                                Edit
+                            </Button>
                             {loading &&
                                 <span className="fa fa-circle-o-notch fa-spin" />
                             }
-                        </div>
+                        </FormControl>
                     </form>
                 </div>
             }

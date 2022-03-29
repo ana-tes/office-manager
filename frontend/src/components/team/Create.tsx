@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import {
+  FormControl,
+  TextField,
+  Button,
+} from '@mui/material';
 import { useAuth0 } from '../../contexts/auth0-context';
+import { useStyles } from '../../common/styles';
 
 const withRouter = (WrappedComponent: any) => (props: any) => {
   const params = useParams();
@@ -19,6 +25,7 @@ function Create(): JSX.Element {
   interface IValues {
     [key: string]: any;
   }
+  const { classes } = useStyles();
   const [author, setAuthor] = useState<string>('');
   const [values, setValues] = useState<IValues>([]);
   const [submitSuccess, setSubmitSuccess] = useState<boolean>(false);
@@ -85,18 +92,23 @@ function Create(): JSX.Element {
           </div>
         )}
         <form id={"create-user-form"} onSubmit={handleFormSubmission} noValidate={true}>
-          <div className="form-group col-md-12">
-            <label htmlFor="name"> Team Name </label>
-            <input type="text" id="name" onChange={(e) => handleInputChanges(e)} name="name" className="form-control" placeholder="Enter team name" />
-          </div>
-          <div className="form-group col-md-4 pull-right">
-            <button className="btn btn-success" type="submit">
-              Create Team
-            </button>
+          <FormControl fullWidth className={classes.selection}>
+            <TextField
+              id="name"
+              onChange={(e: any) => handleInputChanges(e)}
+              name="name"
+              className={classes.infoStyle}
+              label="Name"
+              />
+          </FormControl>
+          <FormControl fullWidth className={classes.buttonSubmit}>
+            <Button variant="contained" type="submit">
+              Create
+            </Button>
             {loading &&
               <span className="fa fa-circle-o-notch fa-spin" />
             }
-          </div>
+          </FormControl>
         </form>
       </div>
     </div>

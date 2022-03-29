@@ -3,12 +3,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import {
   FormControl,
   InputLabel,
+  TextField,
   Select,
   MenuItem,
   Button,
   SelectChangeEvent
 } from '@mui/material';
 import { useAuth0 } from '../../contexts/auth0-context';
+import { useStyles } from '../../common/styles';
 
 const withRouter = (WrappedComponent: any) => (props: any) => {
   const params = useParams();
@@ -27,6 +29,7 @@ function Create(): JSX.Element {
   interface IValues {
     [key: string]: any;
   }
+  const { classes } = useStyles();
   const [author, setAuthor] = useState<string>('');
   const [values, setValues] = useState<IValues>([]);
   const [submitSuccess, setSubmitSuccess] = useState<boolean>(false);
@@ -133,48 +136,85 @@ function Create(): JSX.Element {
           </div>
         )}
         <form id={"create-user-form"} onSubmit={handleFormSubmission} noValidate={true}>
-          <div className="form-group col-md-12">
-            <label htmlFor="firstName"> First Name </label>
-            <input type="text" id="firstName" onChange={(e) => handleInputChanges(e)} name="firstName" className="form-control" placeholder="Enter firstName" />
-          </div>
-          <div className="form-group col-md-12">
-            <label htmlFor="lastName"> Last Name </label>
-            <input type="text" id="lastName" onChange={(e) => handleInputChanges(e)} name="lastName" className="form-control" placeholder="Enter lastName" />
-          </div>
-          <div className="form-group col-md-12">
-            <label htmlFor="login"> Login </label>
-            <input type="text" id="login" onChange={(e) => handleInputChanges(e)} name="login" className="form-control" placeholder="Enter login" />
-          </div>
-          <div className="form-group col-md-12">
-            <label htmlFor="photo"> Photo </label>
-            <input type="text" id="photo" onChange={(e) => handleInputChanges(e)} name="photo" className="form-control" placeholder="Enter photo" />
-          </div>
-          <div className="form-group col-md-12">
-            <label htmlFor="position"> Position </label>
-            <input type="text" id="position" defaultValue={author} onChange={(e) => handleInputChanges(e)} name="position" className="form-control" placeholder="Enter position" />
-          </div>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Team</InputLabel>
+          <FormControl fullWidth className={classes.selection}>
+            <TextField
+              label="First Name"
+              className={classes.infoStyle}
+              color="secondary"
+              id="firstName"
+              onChange={(e: any) => handleInputChanges(e)}
+              name="firstName"
+              focused
+              />
+          </FormControl>
+          <FormControl fullWidth className={classes.selection}>
+            <TextField
+              label="Last Name"
+              className={classes.infoStyle}
+              color="secondary"
+              id="lastName"
+              onChange={(e: any) => handleInputChanges(e)}
+              name="lastName"
+              focused
+              />
+          </FormControl>
+          <FormControl fullWidth className={classes.selection}>
+            <TextField
+              label="Login"
+              className={classes.infoStyle}
+              color="secondary"
+              id="login"
+              onChange={(e: any) => handleInputChanges(e)}
+              name="login"
+              focused
+              />
+          </FormControl>
+          <FormControl fullWidth className={classes.selection}>
+            <TextField
+              label="Photo"
+              className={classes.infoStyle}
+              color="secondary"
+              id="photo"
+              onChange={(e: any) => handleInputChanges(e)}
+              name="photo"
+              focused
+              />
+          </FormControl>
+          <FormControl fullWidth className={classes.selection}>
+            <TextField
+              label="Position"
+              className={classes.infoStyle}
+              color="secondary"
+              id="position"
+              onChange={(e: any) => handleInputChanges(e)}
+              name="position"
+              focused
+              />
+          </FormControl>
+          <FormControl fullWidth className={classes.selection}>
+            <InputLabel id="demo-simple-select-label" color="secondary">Team</InputLabel>
             <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={user?.team?.name}
-            label="Team"
-            onChange={handleTeamChanges}
-            >
+              id="demo-simple-select"
+              color="secondary"
+              label="Team"
+              labelId="demo-simple-select-label"
+              name="team"
+              className={classes.infoStyle}
+              onChange={handleTeamChanges}
+              >
               {
-	                teams?.map((team: {_id: any; name: string}) => (<MenuItem value={team._id}>{team.name}</MenuItem>))
+                  teams?.map((team: {_id: any; name: string}) => (<MenuItem value={team._id}>{team.name}</MenuItem>))
               }
             </Select>
           </FormControl>
-          <div className="create-user-button">
+          <FormControl fullWidth className={classes.buttonSubmit}>
             <Button variant="contained" type="submit">
               Create
             </Button>
             {loading &&
               <span className="fa fa-circle-o-notch fa-spin" />
             }
-          </div>
+          </FormControl>
         </form>
       </div>
     </div>
