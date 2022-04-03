@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
+  Avatar,
   FormControl,
   InputLabel,
   TextField,
@@ -9,6 +10,7 @@ import {
   Button,
   SelectChangeEvent
 } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { useAuth0 } from '../../contexts/auth0-context';
 import { useStyles } from '../../common/styles';
 
@@ -35,8 +37,12 @@ function Create(): JSX.Element {
   const [submitSuccess, setSubmitSuccess] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [teams, setTeams] = useState([]);
+  const [image, setImage] = useState<{filename: string, url: string} | null>(null);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const Input = styled('input')({
+    display: 'none',
+  });
 
   useEffect(() => {
     if (user) {
@@ -64,8 +70,11 @@ function Create(): JSX.Element {
     }, 1500);
   }
 
-  const submitform = async (formData: {}) => {
+  const submitform = async (formData: any) => {
     try {
+      if (image?.filename) {
+        formData['photo'] = image.filename;
+      }
       const accessToken = await getIdTokenClaims();
       const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/user`, {
         method: "POST",
@@ -94,6 +103,57 @@ function Create(): JSX.Element {
   const handleTeamChanges = (e: SelectChangeEvent<any>) => {
     e.preventDefault();
     setFormValues({ "team": e.target.value });
+  }
+
+  const handleInputImageChanges = async (e: ChangeEvent<any>) => {
+
+    e.preventDefault();
+    const accessToken = await getIdTokenClaims();
+    
+    const imageData = new FormData();
+    imageData.append('file', e.target.files[0]);
+    imageData.append('name', e.target.files[0].name);
+
+    fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/avatars`, {
+      method: "POST",
+      headers: new Headers({
+        "authorization": `Bearer ${accessToken.__raw}`
+      }),
+      body: imageData
+    })
+      .then(res => res.json())
+      .then(
+        (image) => {
+          image.url = `${process.env.REACT_APP_SERVER_BASE_URL}/avatars/${image.filename}`;
+          setImage(image);
+        },
+        (error) => {
+          console.log(error)
+          setError(error);
+        }
+      )
+  }
+
+  const deleteAvatarImage = async (imageName: string) => {
+
+    const accessToken = await getIdTokenClaims();
+    
+    fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/avatars/${imageName}`, {
+      method: "DELETE",
+      headers: new Headers({
+        "authorization": `Bearer ${accessToken.__raw}`
+      }),
+    })
+      .then(res => res.json())
+      .then(
+        (_) => {
+          setImage(null);
+        },
+        (error) => {
+          console.log(error)
+          setError(error);
+        }
+      )
   }
 
   useEffect(() => {
@@ -169,17 +229,34 @@ function Create(): JSX.Element {
               focused
               />
           </FormControl>
-          <FormControl fullWidth className={classes.selection}>
-            <TextField
-              label="Photo"
-              className={classes.infoStyle}
-              color="secondary"
-              id="photo"
-              onChange={(e: any) => handleInputChanges(e)}
-              name="photo"
-              focused
-              />
-          </FormControl>
+          {
+            image?.url &&
+            <FormControl fullWidth className={classes.buttonDeleteAvatar}>
+              <Avatar
+                src={image?.url}
+                sx={{ width: 126, height: 126 }}
+                />
+              <Button variant="outlined" onClick={(e: any) => deleteAvatarImage(image?.filename)}>
+                Delete
+              </Button>
+            </FormControl>
+          }
+          {
+            !image?.url &&
+            <FormControl fullWidth className={classes.selection}>
+              <label htmlFor="contained-button-file">
+                  <Input
+                    accept="image/*"
+                    id="contained-button-file"
+                    multiple type="file"
+                    onChange={(e: any) => handleInputImageChanges(e)}
+                    />
+                  <Button variant="contained" component="span">
+                    Upload
+                  </Button>
+              </label>
+            </FormControl>
+          }
           <FormControl fullWidth className={classes.selection}>
             <TextField
               label="Position"

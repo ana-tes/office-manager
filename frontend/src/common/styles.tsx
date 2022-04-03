@@ -7,4 +7,5 @@ export const useStyles = makeStyles()(theme => ({
     },
     selection: { minWidth: 'min-content', maxWidth: theme.spacing(50), minHeight: 105 },
     buttonSubmit: { minWidth: 'min-content', maxWidth: theme.spacing(50), minHeight: 105, alignItems: 'end' },
+    buttonDeleteAvatar: { minWidth: 'min-content', maxWidth: theme.spacing(50), minHeight: 150, alignItems: 'center' },
   }));
